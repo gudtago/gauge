@@ -25,6 +25,7 @@ import (
 	"github.com/getgauge/gauge/gauge_messages"
 )
 
+// TableFrom generates gauge table form the given Proto table.
 func TableFrom(protoTable *gauge_messages.ProtoTable) *gauge.Table {
 	table := &gauge.Table{}
 	table.AddHeaders(protoTable.GetHeaders().GetCells())
