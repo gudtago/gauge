@@ -44,8 +44,10 @@ import (
 	"github.com/getgauge/gauge/parser"
 	"github.com/getgauge/gauge/runner"
 )
+
 // TableRows is used to check for table rows range validation.
 var TableRows = ""
+
 // HideSuggestion is used decide whether suggestion should be given for the unimplemented step or not based on the flag : --hide-suggestion.
 var HideSuggestion bool
 
@@ -81,6 +83,7 @@ type SpecValidationError struct {
 func (s StepValidationError) Error() string {
 	return fmt.Sprintf("%s:%d %s => '%s'%s", s.fileName, s.step.LineNo, s.message, s.step.GetLineText(), s.suggestion)
 }
+
 // Error prints a spec validation error with filename and error message.
 func (s SpecValidationError) Error() string {
 	return fmt.Sprintf("%s %s", s.fileName, s.message)

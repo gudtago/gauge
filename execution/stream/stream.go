@@ -46,6 +46,7 @@ import (
 	"google.golang.org/grpc"
 )
 
+// Start starts the streaming execution API.
 func Start() {
 	port, err := conn.GetPortFromEnvironmentVariable(common.APIV2PortEnvVariableName)
 	if err != nil {
