@@ -31,6 +31,8 @@ import (
 
 	"sync"
 
+	"io"
+
 	"github.com/getgauge/common"
 	"github.com/getgauge/gauge/config"
 	"github.com/getgauge/gauge/conn"
@@ -38,7 +40,6 @@ import (
 	"github.com/getgauge/gauge/logger"
 	"github.com/getgauge/gauge/manifest"
 	"github.com/getgauge/gauge/plugin"
-	"github.com/getgauge/gauge/reporter"
 	"github.com/getgauge/gauge/version"
 )
 
@@ -274,7 +275,7 @@ func errorResult(message string) *gauge_messages.ProtoExecutionResult {
 
 // Looks for a runner configuration inside the runner directory
 // finds the runner configuration matching to the manifest and executes the commands for the current OS
-func StartRunner(manifest *manifest.Manifest, port string, reporter reporter.Reporter, killChannel chan bool, debug bool) (*LanguageRunner, error) {
+func StartRunner(manifest *manifest.Manifest, port string, reporter io.Writer, killChannel chan bool, debug bool) (*LanguageRunner, error) {
 	var r RunnerInfo
 	runnerDir, err := getLanguageJSONFilePath(manifest, &r)
 	if err != nil {
@@ -392,7 +393,7 @@ type StartChannels struct {
 	KillChan chan bool
 }
 
-func Start(manifest *manifest.Manifest, reporter reporter.Reporter, killChannel chan bool, debug bool) (Runner, error) {
+func Start(manifest *manifest.Manifest, reporter io.Writer, killChannel chan bool, debug bool) (Runner, error) {
 	port, err := conn.GetPortFromEnvironmentVariable(common.GaugePortEnvName)
 	if err != nil {
 		port = 0
